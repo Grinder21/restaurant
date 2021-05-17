@@ -28,13 +28,13 @@ export default {
 
   created() {
     this.$bus.on('add-cart', this.addCart)
-
     // this.total = this.items.reduce()
   },
 
   methods: {
     addCart(item) {
       this.items.push(item)
+      localStorage.setItem('allContent', JSON.stringify(this.items)) // Отсюда работать с корзиной
       // console.log(`cart: ${JSON.stringify(this.$data)}`)
       this.$bus.emit('count-cart', this.items.length)
       this.result = this.items.reduce((accumulator, el) => {

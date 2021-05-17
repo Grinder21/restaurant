@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer>
+    <footer class="">
       <div class="footer-menu">
         <div>© All rights reserved 2021</div>
       </div>

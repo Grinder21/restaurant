@@ -4,12 +4,16 @@
     <div class="mainDiv container" v-if="!loading">
       <div class="infoRestaurant">
         <h1 class="mt-5 mb-5">Ресторан {{ item.name }}</h1>
-        <h3 class="mt-3 mb-3">Адрес ресторана: {{ item.address }}</h3>
-        <h3 class="mt-3 mb-5">Телефон для бронирования: {{ item.phone }}</h3>
+        <h3 class="mt-5 mb-5">Адрес ресторана: {{ item.address }}</h3>
+        <h3 class="mt-5 mb-5">Телефон для бронирования: {{ item.phone }}</h3>
+        <h3 class="mt-5 mb-5">Время работы: {{ item.hours }}</h3>
+        <h3 class="mt-5 mb-5">Статус: {{ openRest }}</h3>
+        <h3>{{ timestamp }}</h3>
+        <h3 class="mt-5 mb-5">Сделать счетчик до открытия/закрытия</h3>
         <div>
           <div class="actRestaurant">
             <b-button
-              class="act-menu mb-5"
+              class="act-menu mb-5 mt-5"
               variant="dark"
               @click="getMenuRestaurant"
             >
@@ -70,10 +74,14 @@ export default {
       post: null,
       error: null,
       showMenu: false,
+      timestamp: '',
+      openRest: '',
       menu: [],
     }
   },
   async created() {
+    setInterval(this.getNow, 1000)
+    this.openRest = ''
     this.id = this.$route.params.id
     this.loading = true
     try {
@@ -94,6 +102,19 @@ export default {
     },
     getNameRestaurant(menu) {
       eventBus.$emit('getNameRestaurant', menu)
+    },
+    getNow() {
+      const today = new Date()
+      const time =
+        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+      const dateTime = time
+      this.timestamp = dateTime
+      const jobStatus = today.getHours()
+      if (12 <= jobStatus && jobStatus < 23) {
+        this.openRest = 'работает'
+      } else {
+        this.openRest = 'закрыт'
+      }
     },
   },
 }

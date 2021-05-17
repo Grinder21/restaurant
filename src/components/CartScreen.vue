@@ -26,7 +26,7 @@
           <div class="sum">Итого: {{ total }}₽</div>
           <div>
             <router-link to="/send/order">
-              <b-button @click="goToOrder" variant="dark mt-3">
+              <b-button @click="check()" variant="dark mt-3">
                 Оформить заказ
               </b-button>
             </router-link>
@@ -77,6 +77,9 @@ export default {
     },
     goToOrder(cartItem, total) {
       eventBus.$emit('goToOrder', cartItem, total)
+    },
+    goTo(cartItem) {
+      eventBus.$emit('goTo', cartItem)
     },
   },
   watch: {

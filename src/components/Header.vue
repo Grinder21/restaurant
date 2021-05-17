@@ -31,12 +31,13 @@
 export default {
   data() {
     return {
-      countGoodsInBasket: 0,
+      countGoodsInBasket: localStorage.getItem('counterBasket'),
     }
   },
   created() {
     this.$bus.on('count-cart', (count) => {
       this.countGoodsInBasket = count
+      localStorage.setItem('counterBasket', this.countGoodsInBasket)
     })
   },
 }

@@ -85,7 +85,7 @@ export default {
 .menu-img-item {
   max-width: 400px;
   width: 100%;
-  height: 250px;
+  height: 280px;
   border-radius: 15px;
 }
 
