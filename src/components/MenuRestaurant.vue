@@ -76,6 +76,7 @@ export default {
         count: 1,
         price: good.price,
       })
+      alert('Продукт добавлен в корзину!')
     },
   },
 }

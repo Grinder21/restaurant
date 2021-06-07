@@ -1,13 +1,44 @@
 <template>
   <div class="container">
-    <b-table striped hover :items="items"></b-table>
-    <b-button>Вызвать курьера</b-button>
+    <h3 class="text-center mt-5">Заказы ресторану</h3>
+    <div class="container" v-show="visible">
+      <div class="container d-flex align-items-center">
+        <ul class="order-list list-unstyled mt-5">
+          <li class="mb-2">Номер заказа: {{ getNumberOrder }}</li>
+          <li class="mb-2">Ресторан: {{ restaurantOrder }}</li>
+          <li class="mb-2" v-for="(item, i) in orderList" :key="i">
+            {{
+              'Название: ' +
+                item.name +
+                ' | ' +
+                ' Количество: ' +
+                item.count +
+                ' | ' +
+                ' Цена: ' +
+                item.price +
+                '₽'
+            }}
+          </li>
+          <li class="mb-2">Сумма заказа: {{ totalOrder }}₽</li>
+          <li class="mb-2">
+            <b-button
+              class="get-courier"
+              variant="success"
+              @click="visible = !visible"
+              >{{
+                visible ? 'Заказ получен курьером' : 'Отобразить заказ'
+              }}</b-button
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
     <!-- <code> {{ orders }} </code> -->
-    <ul>
+    <!-- <ul>
       <li v-for="(chack, i) in orderList" :key="i">
         {{ chack }}
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
@@ -24,6 +55,7 @@ export default {
       items: [],
       orders: [],
       orderList: [],
+      visible: true,
     }
   },
   created() {
@@ -45,7 +77,8 @@ export default {
     this.getNumberOrder = localStorage.getItem('numberOrder')
     this.restaurantOrder = localStorage.getItem('selected')
     this.totalOrder = localStorage.getItem('total')
-    this.orderList = localStorage.getItem('allContent')
+    this.orderList = JSON.parse(localStorage.getItem('allContent'))
+    console.log(typeof this.orderList)
     this.status = this.items.push({
       orderNumber: this.getNumberOrder,
       restaurant: this.restaurantOrder,
@@ -53,7 +86,20 @@ export default {
       content: this.orderList,
     })
   },
+  methods: {
+    seenAlert() {
+      alert('Заказ передан курьеру!')
+    },
+  },
 }
 </script>
 
-<style></style>
+<style scoped>
+.order-list {
+  font-size: 18px;
+  font-weight: 500;
+}
+.get-courier {
+  font-size: 18px;
+}
+</style>

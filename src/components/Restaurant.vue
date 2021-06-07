@@ -9,7 +9,6 @@
         <h3 class="mt-5 mb-5">Время работы: {{ item.hours }}</h3>
         <h3 class="mt-5 mb-5">Статус: {{ openRest }}</h3>
         <h3>{{ timestamp }}</h3>
-        <h3 class="mt-5 mb-5">Сделать счетчик до открытия/закрытия</h3>
         <div>
           <div class="actRestaurant">
             <b-button
